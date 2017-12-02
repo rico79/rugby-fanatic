@@ -1,3 +1,3 @@
-# Rugby Fantasy
+# Rugby Fanatic
 
 Rugby board game

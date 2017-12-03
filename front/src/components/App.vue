@@ -1,18 +1,18 @@
 <template>
     <v-app id="app">
         <Navigation></Navigation>
-        <Field></Field>
+        <Stadium></Stadium>
     </v-app>
 </template>
 
 <script>
     import Navigation from './Navigation.vue'
-    import Field from './Field.vue'
+    import Stadium from './Stadium.vue'
 
     export default {
         components: {
             Navigation,
-            Field
+            Stadium
         }
     }
 </script>

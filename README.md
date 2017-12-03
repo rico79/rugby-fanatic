@@ -38,12 +38,18 @@ Clone the repo:
 $ git clone https://github.com/rico79/rugby-fanatic.git
 ```
 
-Then install the project dependencies:
+Then install the frontend dependencies:
 
 ```
 $ cd rugby-fanatic
 $ cd front
 $ yarn install
+```
+
+To rebundle the frontend with webpack (each time the code is changed):
+
+```
+$ yarn run build
 ```
 
 And that's it !! You can now develop...

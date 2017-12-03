@@ -19,36 +19,38 @@ $ pip install gunicorn
 
 You will need to install :
 - nodejs: https://nodejs.org/en/download/package-manager/
+- npm (should be installed with nodejs)
+- yarn: https://yarnpkg.com/lang/en/docs/install/
+
+Check that everything is OK:
 
 ```
 $ node --version
-```
-
-- npm (should be installed with nodejs)
-
-```
 $ npm --version
-```
-
-- yarn: https://yarnpkg.com/lang/en/docs/install/
-
-```
 $ yarn --version
 ```
 
-### Repo
+### Get Started
 
-Then, clone the repo:
+Clone the repo:
 
 ```
 $ git clone https://github.com/rico79/rugby-fanatic.git
+```
+
+Then install the project dependencies:
+
+```
+$ cd rugby-fanatic
+$ cd front
+$ yarn install
 ```
 
 And that's it !! You can now develop...
 
 ## Run the app locally
 
-If you use Ubuntu, you should probably replace python by python3:
+From rugby-fanatic main directory run the app (if you use Ubuntu, you should probably replace python by python3):
 
 ```
 $ python app.py
@@ -57,6 +59,8 @@ $ python app.py
 see localhost:5000
 
 ## Deploy the app
+
+From rugby-fanatic main directory:
 
 ```
 $ git push heroku master

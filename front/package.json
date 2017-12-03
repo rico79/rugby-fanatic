@@ -1,0 +1,9 @@
+{
+    "name": "rugby-fanatic",
+    "version": "1.0.0",
+    "description": "Rugby board game",
+    "main": "index.js",
+    "repository": "https://github.com/rico79/rugby-fanatic.git",
+    "author": "rico79 <eric.vogt.pro@gmail.com>",
+    "license": "MIT"
+}

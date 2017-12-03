@@ -6,17 +6,18 @@
     "repository": "https://github.com/rico79/rugby-fanatic.git",
     "author": "rico79 <eric.vogt.pro@gmail.com>",
     "license": "MIT",
-
     "scripts": {
         "build": "webpack"
     },
-
     "devDependencies": {
         "babel-cli": "^6.26.0",
         "babel-preset-env": "^1.6.1",
+        "css-loader": "^0.28.7",
+        "fsevents": "^1.1.3",
+        "vue-loader": "^13.5.0",
+        "vue-template-compiler": "^2.5.9",
         "webpack": "^3.9.1"
     },
-
     "dependencies": {
         "vue": "^2.5.9"
     }

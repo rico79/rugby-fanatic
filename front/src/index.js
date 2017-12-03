@@ -1,8 +1,8 @@
 import Vue from 'vue'
+import App from './components/App.vue'
 
-var app = new Vue({
+new Vue({
     el: '#app',
-    data: {
-        message: 'Hello Vue !'
-    }
+    template: '<App/>',
+    components: { App }
 })

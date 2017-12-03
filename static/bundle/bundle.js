@@ -29624,7 +29624,11 @@ var render = function() {
                     color: "green darken-4"
                   }
                 },
-                [_c("v-card-text", [_vm._v("x")])],
+                [
+                  _c("v-card-text", { staticClass: "text-xs-center" }, [
+                    _vm._v("x")
+                  ])
+                ],
                 1
               )
             ],

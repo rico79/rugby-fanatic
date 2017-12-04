@@ -1,5 +1,5 @@
 <template>
-    <v-container id="stadium" fluid>
+    <v-container id="stadium">
         <Field></Field>
     </v-container>
 </template>

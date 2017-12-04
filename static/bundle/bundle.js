@@ -29604,7 +29604,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-container",
-    { attrs: { id: "field", fluid: "" } },
+    { attrs: { id: "field", "text-xs-center": "" } },
     _vm._l(15, function(i) {
       return _c(
         "v-layout",
@@ -29616,19 +29616,8 @@ var render = function() {
             [
               _c(
                 "v-card",
-                {
-                  attrs: {
-                    dark: "",
-                    tile: "",
-                    flat: "",
-                    color: "green darken-4"
-                  }
-                },
-                [
-                  _c("v-card-text", { staticClass: "text-xs-center" }, [
-                    _vm._v("x")
-                  ])
-                ],
+                { attrs: { dark: "", flat: "", color: "green darken-4" } },
+                [_c("v-card-text")],
                 1
               )
             ],
@@ -29659,12 +29648,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "v-container",
-    { attrs: { id: "stadium", fluid: "" } },
-    [_c("Field")],
-    1
-  )
+  return _c("v-container", { attrs: { id: "stadium" } }, [_c("Field")], 1)
 }
 var staticRenderFns = []
 render._withStripped = true

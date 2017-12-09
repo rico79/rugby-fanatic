@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <Navigation></Navigation>
+        <Navigation class="hidden-sm-and-down"></Navigation>
         <Stadium></Stadium>
     </v-app>
 </template>

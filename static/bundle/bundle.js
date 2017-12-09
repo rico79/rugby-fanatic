@@ -29540,8 +29540,32 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = {
     components: {
         Field: _Field2.default
+    },
+
+    data: function data() {
+        return {
+            windowSize: {
+                x: 0,
+                y: 0
+            }
+        };
+    },
+
+    mounted: function mounted() {
+        this.onResize();
+    },
+
+
+    methods: {
+        onResize: function onResize() {
+            this.windowSize = { x: window.innerWidth, y: window.innerHeight };
+        }
     }
 }; //
+//
+//
+//
+//
 //
 //
 //
@@ -29654,7 +29678,34 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("v-container", { attrs: { id: "stadium" } }, [_c("Field")], 1)
+  return _c(
+    "v-container",
+    { attrs: { id: "stadium" } },
+    [
+      _c(
+        "v-layout",
+        {
+          directives: [
+            {
+              name: "resize",
+              rawName: "v-resize",
+              value: _vm.onResize,
+              expression: "onResize"
+            }
+          ],
+          attrs: { column: "", "align-center": "", "justify-center": "" }
+        },
+        [
+          _c("v-subheader", [_vm._v("Window Size")]),
+          _vm._v("\n        " + _vm._s(_vm.windowSize) + "\n    ")
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("Field")
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

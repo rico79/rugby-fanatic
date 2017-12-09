@@ -1,5 +1,5 @@
 <template>
-    <v-app id="app">
+    <v-app>
         <Navigation></Navigation>
         <Stadium></Stadium>
     </v-app>

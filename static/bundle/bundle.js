@@ -29436,7 +29436,13 @@ var render = function() {
   return _c(
     "v-toolbar",
     {
-      attrs: { id: "navigation", color: "grey darken-3", dark: "", dense: "" }
+      attrs: {
+        id: "navigation",
+        color: "grey darken-3",
+        "elevation-10": "",
+        dark: "",
+        dense: ""
+      }
     },
     [
       _c("v-btn", { attrs: { icon: "" } }, [
@@ -29604,19 +29610,19 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-container",
-    { attrs: { id: "field", "text-xs-center": "" } },
+    { attrs: { id: "field" } },
     _vm._l(15, function(i) {
       return _c(
         "v-layout",
         { key: i, attrs: { row: "" } },
-        _vm._l(24, function(j) {
+        _vm._l(26, function(j) {
           return _c(
             "v-flex",
             { key: j, attrs: { xs1: "" } },
             [
               _c(
                 "v-card",
-                { attrs: { dark: "", flat: "", color: "green darken-4" } },
+                { attrs: { flat: "", color: "green darken-4" } },
                 [_c("v-card-text")],
                 1
               )
@@ -29670,12 +29676,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "v-app",
-    { attrs: { id: "app" } },
-    [_c("Navigation"), _vm._v(" "), _c("Stadium")],
-    1
-  )
+  return _c("v-app", [_c("Navigation"), _vm._v(" "), _c("Stadium")], 1)
 }
 var staticRenderFns = []
 render._withStripped = true

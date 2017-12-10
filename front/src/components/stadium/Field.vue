@@ -1,17 +1,21 @@
 <template>
     <v-container id="field">
-        <v-layout row v-for="i in getLarge()" :key="i">
-            <v-flex xs1 v-for="j in getLong()" :key="j">
-                <v-card flat color="green darken-4">
-                    <v-card-text></v-card-text>
-                </v-card>
+        <v-layout row v-for="i in rowNb" :key="i">
+            <v-flex xs1 v-for="j in colNb" :key="j">
+                <Cell :cell-size="cellSize"></Cell>
             </v-flex>
         </v-layout>
     </v-container>
 </template>
 
 <script>
+    import Cell from './Cell.vue'
+
     export default {
+        components: {
+            Cell
+        },
+
         props: ['windowSize'],
 
         data: () => ({
@@ -21,8 +25,8 @@
             }
         }),
 
-        methods: {
-            getLarge () {
+        computed: {
+            rowNb () {
                if (this.windowSize.x > this.windowSize.y) {
                    return this.size.large
                } else {
@@ -30,11 +34,19 @@
                }
             },
 
-            getLong () {
+            colNb () {
                if (this.windowSize.x > this.windowSize.y) {
                    return this.size.long
                } else {
                    return this.size.large
+               }
+            },
+
+            cellSize () {
+               if (this.windowSize.x / this.rowNb < this.windowSize.y / this.colNb) {
+                   return Math.floor(this.windowSize.x / this.rowNb)
+               } else {
+                   return Math.floor(this.windowSize.y / this.colNb)
                }
             }
         }

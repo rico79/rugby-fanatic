@@ -13,10 +13,7 @@
         },
 
         data: () => ({
-            windowSize: {
-                x: 0,
-                y: 0
-            }
+            windowSize: { x: 0, y: 0 }
         }),
 
         mounted () {

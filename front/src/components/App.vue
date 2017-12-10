@@ -7,7 +7,7 @@
 
 <script>
     import Navigation from './Navigation.vue'
-    import Stadium from './Stadium.vue'
+    import Stadium from './stadium/Stadium.vue'
 
     export default {
         components: {

@@ -1,10 +1,6 @@
 <template>
-    <v-container id="stadium">
-        <v-layout v-resize="onResize" column align-center justify-center>
-            <v-subheader>Window Size</v-subheader>
-            {{ windowSize }}
-        </v-layout>  
-        <Field></Field>
+    <v-container v-resize="onResize" id="stadium">
+        <Field :window-size="windowSize"></Field>
     </v-container>
 </template>
 

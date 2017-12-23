@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <Navigation class="hidden-sm-and-down"></Navigation>
+        <Navigation></Navigation>
         <Stadium></Stadium>
     </v-app>
 </template>
@@ -12,10 +12,7 @@
     export default {
         components: {
             Navigation,
-            Stadium
+            Stadium,
         }
     }
 </script>
-
-<style>
-</style>

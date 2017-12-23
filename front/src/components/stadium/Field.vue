@@ -1,54 +1,53 @@
 <template>
-    <v-container id="field">
-        <v-layout row v-for="i in rowNb" :key="i">
-            <v-flex xs1 v-for="j in colNb" :key="j">
-                <Cell :cell-size="cellSize"></Cell>
-            </v-flex>
-        </v-layout>
-    </v-container>
+    <table id="field" v-resize="onResize">
+        <tr v-for="i in rowNb" :key="i">
+            <td v-for="j in colNb" :key="j" v-bind:style="styleCell"></td>
+        </tr>
+    </table>
 </template>
 
 <script>
-    import Cell from './Cell.vue'
-
     export default {
-        components: {
-            Cell
-        },
+        // properties from parent component
+        props: ['long', 'large', 'fieldSize'],
 
-        props: ['windowSize'],
-
-        data: () => ({
-            size: {
-                long: 26,
-                large: 15
-            }
-        }),
-
+        // Data generated from other data
         computed: {
             rowNb () {
-               if (this.windowSize.x > this.windowSize.y) {
-                   return this.size.large
+               if (this.fieldSize.x > this.fieldSize.y) {
+                   return this.large
                } else {
-                   return this.size.long
+                   return this.long
                }
             },
 
             colNb () {
-               if (this.windowSize.x > this.windowSize.y) {
-                   return this.size.long
+               if (this.fieldSize.x > this.fieldSize.y) {
+                   return this.long
                } else {
-                   return this.size.large
+                   return this.large
                }
             },
 
             cellSize () {
-               if (this.windowSize.x / this.rowNb < this.windowSize.y / this.colNb) {
-                   return Math.floor(this.windowSize.x / this.rowNb)
+               if (this.fieldSize.x / this.colNb < this.fieldSize.y / this.rowNb) {
+                   return Math.floor(this.fieldSize.x / this.colNb)
                } else {
-                   return Math.floor(this.windowSize.y / this.colNb)
+                   return Math.floor(this.fieldSize.y / this.rowNb)
                }
+            },
+
+            styleCell () {
+               return { width: this.cellSize + 'px', height: this.cellSize + 'px' }
             }
-        }
+        },
     }
 </script>
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        text-align: center;
+    }
+</style>

@@ -1,6 +1,6 @@
 <template>
     <v-container id="stadium" v-resize="onResize">
-        <Field :long="fieldCells.long" :large="fieldCells.large" :field-size="fieldSize"></Field>
+        <Field :row-nb="fieldRowNb" :col-nb="fieldColNb" :cell-size="cellSize"></Field>
     </v-container>
 </template>
 
@@ -10,12 +10,12 @@
     export default {
         // Other components included
         components: {
-            Field
+            Field,
         },
 
         // Component data
         data: () => ({
-            windowSize: { x: 0, y: 0 },
+            stadiumSize: { x: 0, y: 0 },
             fieldCells: { long: 26, large: 15 },
         }),
 
@@ -27,14 +27,37 @@
         // Component methods
         methods: {
             onResize () {
-                this.windowSize = { x:  document.getElementById("stadium").clientWidth, y: document.getElementById("stadium").clientHeight }
+                this.stadiumSize = { 
+                    x:  document.getElementById("stadium").clientWidth, 
+                    y: document.getElementById("stadium").clientHeight,
+                }
             }
         },
 
         // Data generated from other data
         computed: {
-            fieldSize () {
-               return { x: this.windowSize.x, y: this.windowSize.y }
+            fieldRowNb () {
+               if (this.stadiumSize.x > this.stadiumSize.y) {
+                   return this.fieldCells.large
+               } else {
+                   return this.fieldCells.long
+               }
+            },
+
+            fieldColNb () {
+               if (this.stadiumSize.x > this.stadiumSize.y) {
+                   return this.fieldCells.long
+               } else {
+                   return this.fieldCells.large
+               }
+            },
+
+            cellSize () {
+               if (this.stadiumSize.x / this.fieldColNb < this.stadiumSize.y / this.fieldRowNb) {
+                   return Math.floor(this.stadiumSize.x / this.fieldColNb)
+               } else {
+                   return Math.floor(this.stadiumSize.y / this.fieldRowNb)
+               }
             },
         },
     }

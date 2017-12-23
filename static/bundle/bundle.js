@@ -32027,7 +32027,7 @@ exports.default = {
     // Component data
     data: function data() {
         return {
-            windowSize: { x: 0, y: 0 },
+            stadiumSize: { x: 0, y: 0 },
             fieldCells: { long: 26, large: 15 }
         };
     },
@@ -32041,14 +32041,35 @@ exports.default = {
     // Component methods
     methods: {
         onResize: function onResize() {
-            this.windowSize = { x: document.getElementById("stadium").clientWidth, y: document.getElementById("stadium").clientHeight };
+            this.stadiumSize = {
+                x: document.getElementById("stadium").clientWidth,
+                y: document.getElementById("stadium").clientHeight
+            };
         }
     },
 
     // Data generated from other data
     computed: {
-        fieldSize: function fieldSize() {
-            return { x: this.windowSize.x, y: this.windowSize.y };
+        fieldRowNb: function fieldRowNb() {
+            if (this.stadiumSize.x > this.stadiumSize.y) {
+                return this.fieldCells.large;
+            } else {
+                return this.fieldCells.long;
+            }
+        },
+        fieldColNb: function fieldColNb() {
+            if (this.stadiumSize.x > this.stadiumSize.y) {
+                return this.fieldCells.long;
+            } else {
+                return this.fieldCells.large;
+            }
+        },
+        cellSize: function cellSize() {
+            if (this.stadiumSize.x / this.fieldColNb < this.stadiumSize.y / this.fieldRowNb) {
+                return Math.floor(this.stadiumSize.x / this.fieldColNb);
+            } else {
+                return Math.floor(this.stadiumSize.y / this.fieldRowNb);
+            }
         }
     }
 }; //
@@ -32430,31 +32451,10 @@ Object.defineProperty(exports, "__esModule", {
 
 exports.default = {
     // properties from parent component
-    props: ['long', 'large', 'fieldSize'],
+    props: ['rowNb', 'colNb', 'cellSize'],
 
     // Data generated from other data
     computed: {
-        rowNb: function rowNb() {
-            if (this.fieldSize.x > this.fieldSize.y) {
-                return this.large;
-            } else {
-                return this.long;
-            }
-        },
-        colNb: function colNb() {
-            if (this.fieldSize.x > this.fieldSize.y) {
-                return this.long;
-            } else {
-                return this.large;
-            }
-        },
-        cellSize: function cellSize() {
-            if (this.fieldSize.x / this.colNb < this.fieldSize.y / this.rowNb) {
-                return Math.floor(this.fieldSize.x / this.colNb);
-            } else {
-                return Math.floor(this.fieldSize.y / this.rowNb);
-            }
-        },
         styleCell: function styleCell() {
             return { width: this.cellSize + 'px', height: this.cellSize + 'px' };
         }
@@ -32472,17 +32472,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "table",
-    {
-      directives: [
-        {
-          name: "resize",
-          rawName: "v-resize",
-          value: _vm.onResize,
-          expression: "onResize"
-        }
-      ],
-      attrs: { id: "field" }
-    },
+    { attrs: { id: "field" } },
     _vm._l(_vm.rowNb, function(i) {
       return _c(
         "tr",
@@ -32530,9 +32520,9 @@ var render = function() {
     [
       _c("Field", {
         attrs: {
-          long: _vm.fieldCells.long,
-          large: _vm.fieldCells.large,
-          "field-size": _vm.fieldSize
+          "row-nb": _vm.fieldRowNb,
+          "col-nb": _vm.fieldColNb,
+          "cell-size": _vm.cellSize
         }
       })
     ],

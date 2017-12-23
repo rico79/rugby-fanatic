@@ -1,5 +1,5 @@
 <template>
-    <table id="field" v-resize="onResize">
+    <table id="field">
         <tr v-for="i in rowNb" :key="i">
             <td v-for="j in colNb" :key="j" v-bind:style="styleCell"></td>
         </tr>
@@ -9,34 +9,10 @@
 <script>
     export default {
         // properties from parent component
-        props: ['long', 'large', 'fieldSize'],
+        props: ['rowNb', 'colNb', 'cellSize'],
 
         // Data generated from other data
         computed: {
-            rowNb () {
-               if (this.fieldSize.x > this.fieldSize.y) {
-                   return this.large
-               } else {
-                   return this.long
-               }
-            },
-
-            colNb () {
-               if (this.fieldSize.x > this.fieldSize.y) {
-                   return this.long
-               } else {
-                   return this.large
-               }
-            },
-
-            cellSize () {
-               if (this.fieldSize.x / this.colNb < this.fieldSize.y / this.rowNb) {
-                   return Math.floor(this.fieldSize.x / this.colNb)
-               } else {
-                   return Math.floor(this.fieldSize.y / this.rowNb)
-               }
-            },
-
             styleCell () {
                return { width: this.cellSize + 'px', height: this.cellSize + 'px' }
             }

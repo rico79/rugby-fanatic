@@ -1,5 +1,5 @@
 <template>
-    <table id="field">
+    <table id="field" v-bind:style="styleField">
         <tr v-for="i in rowNb" :key="i">
             <td v-for="j in colNb" :key="j" v-bind:style="styleCell"></td>
         </tr>
@@ -13,9 +13,24 @@
 
         // Data generated from other data
         computed: {
+            styleField () {
+                var imgUrl = 'url("/static/img/bb-field-horizontal.jpg")'
+                if (this.rowNb > this.colNb) {
+                    imgUrl = 'url("/static/img/bb-field-vertical.jpg")'
+                }
+
+                return {
+                    backgroundImage: imgUrl,
+                    backgroundSize: '100% 100%',
+                }
+            },
+
             styleCell () {
-               return { width: this.cellSize + 'px', height: this.cellSize + 'px' }
-            }
+                return {
+                    width: this.cellSize + 'px',
+                    height: this.cellSize + 'px',
+                }
+            },
         },
     }
 </script>

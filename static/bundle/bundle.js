@@ -32455,8 +32455,22 @@ exports.default = {
 
     // Data generated from other data
     computed: {
+        styleField: function styleField() {
+            var imgUrl = 'url("/static/img/bb-field-horizontal.jpg")';
+            if (this.rowNb > this.colNb) {
+                imgUrl = 'url("/static/img/bb-field-vertical.jpg")';
+            }
+
+            return {
+                backgroundImage: imgUrl,
+                backgroundSize: '100% 100%'
+            };
+        },
         styleCell: function styleCell() {
-            return { width: this.cellSize + 'px', height: this.cellSize + 'px' };
+            return {
+                width: this.cellSize + 'px',
+                height: this.cellSize + 'px'
+            };
         }
     }
 };
@@ -32472,7 +32486,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "table",
-    { attrs: { id: "field" } },
+    { style: _vm.styleField, attrs: { id: "field" } },
     _vm._l(_vm.rowNb, function(i) {
       return _c(
         "tr",

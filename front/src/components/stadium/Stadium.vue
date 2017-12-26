@@ -38,25 +38,25 @@
         computed: {
             fieldRowNb () {
                if (this.stadiumSize.x > this.stadiumSize.y) {
-                   return this.fieldCells.large
+                    return this.fieldCells.large
                } else {
-                   return this.fieldCells.long
+                    return this.fieldCells.long
                }
             },
 
             fieldColNb () {
                if (this.stadiumSize.x > this.stadiumSize.y) {
-                   return this.fieldCells.long
+                    return this.fieldCells.long
                } else {
-                   return this.fieldCells.large
+                    return this.fieldCells.large
                }
             },
 
             cellSize () {
                if (this.stadiumSize.x / this.fieldColNb < this.stadiumSize.y / this.fieldRowNb) {
-                   return Math.floor(this.stadiumSize.x / this.fieldColNb)
+                    return Math.floor(this.stadiumSize.x / this.fieldColNb)
                } else {
-                   return Math.floor(this.stadiumSize.y / this.fieldRowNb)
+                    return Math.floor(this.stadiumSize.y / this.fieldRowNb)
                }
             },
         },

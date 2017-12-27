@@ -1,16 +1,19 @@
 <template>
     <v-container id="stadium" v-resize="onResize">
+        <Player></Player>
         <Field :field="field" :is-vertical="isVertical" :cell-size="cellSize"></Field>
     </v-container>
 </template>
 
 <script>
     import Field from './Field.vue'
+    import Player from './Player.vue'
 
     export default {
         // Other components included
         components: {
             Field,
+            Player,
         },
 
         // Component data
@@ -45,11 +48,11 @@
         // Data generated from other data
         computed: {
             isVertical () {
-                return ! ( this.stadiumSize.x > this.stadiumSize.y )
+                return ! (this.stadiumSize.x > this.stadiumSize.y)
             },
 
             verticalCellNb () {
-                if ( this.isVertical ) {
+                if (this.isVertical) {
                     return this.field.long
                 } else {
                     return this.field.large
@@ -57,7 +60,7 @@
             },
 
             horizontalCellNb () {
-                if ( this.isVertical ) {
+                if (this.isVertical) {
                     return this.field.large
                 } else {
                     return this.field.long
@@ -65,10 +68,10 @@
             },
 
             cellSize () {
-                if ( this.stadiumSize.x / this.horizontalCellNb < this.stadiumSize.y / this.verticalCellNb ) {
-                    return Math.floor( this.stadiumSize.x / this.horizontalCellNb )
+                if (this.stadiumSize.x / this.horizontalCellNb < this.stadiumSize.y / this.verticalCellNb) {
+                    return Math.floor(this.stadiumSize.x / this.horizontalCellNb)
                 } else {
-                    return Math.floor( this.stadiumSize.y / this.verticalCellNb )
+                    return Math.floor(this.stadiumSize.y / this.verticalCellNb)
                 }
             },
         },

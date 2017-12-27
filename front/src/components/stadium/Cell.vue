@@ -1,11 +1,24 @@
 <template>
-   <td v-bind:style="styleCell"></td>
+   <td :style="styleCell" @drop="drop($event)" @dragover="allowDrop($event)"></td>
 </template>
 
 <script>
     export default {
         // properties from parent component
         props: ['cellSize'],
+
+        // Component methods
+        methods: {
+            allowDrop (event) {
+                event.preventDefault()
+            },
+
+            drop (event) {
+                event.preventDefault()
+                var data = event.dataTransfer.getData("text")
+                event.target.appendChild(document.getElementById(data))
+            },
+        },
 
         // Data generated from other data
         computed: {

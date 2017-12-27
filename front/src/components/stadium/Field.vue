@@ -28,7 +28,7 @@
             },
 
             imgUrl () {
-                if ( this.isVertical ) {
+                if (this.isVertical) {
                     return 'url("/static/img/' + this.field.image + '-vertical.jpg")'
                 } else {
                     return 'url("/static/img/' + this.field.image + '-horizontal.jpg")'
@@ -36,7 +36,7 @@
             },
 
             verticalCellNb () {
-                if ( this.isVertical ) {
+                if (this.isVertical) {
                     return this.field.long
                 } else {
                     return this.field.large
@@ -44,7 +44,7 @@
             },
 
             horizontalCellNb () {
-                if ( this.isVertical ) {
+                if (this.isVertical) {
                     return this.field.large
                 } else {
                     return this.field.long

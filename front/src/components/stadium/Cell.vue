@@ -21,7 +21,6 @@
 
 <style>
     td {
-        border: 0.5px solid grey;
         text-align: center;
     }
 </style>

@@ -19,11 +19,11 @@
                 x: 0, 
                 y: 0 
             },
-            
+
             field: {
                 long: 26, 
-                large: 15,
-                image: 'bb-field',
+                large: 17,
+                image: 'rugby-field',
             },
         }),
 

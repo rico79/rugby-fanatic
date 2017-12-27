@@ -32255,8 +32255,8 @@ exports.default = {
 
             field: {
                 long: 26,
-                large: 15,
-                image: 'bb-field'
+                large: 17,
+                image: 'rugby-field'
             }
         };
     },
@@ -32598,7 +32598,7 @@ exports = module.exports = __webpack_require__(2)(undefined);
 
 
 // module
-exports.push([module.i, "\ntd {\n    border: 0.5px solid grey;\n    text-align: center;\n}\n", ""]);
+exports.push([module.i, "\ntd {\n    text-align: center;\n}\n", ""]);
 
 // exports
 

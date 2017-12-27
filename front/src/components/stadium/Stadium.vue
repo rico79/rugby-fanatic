@@ -1,6 +1,6 @@
 <template>
     <v-container id="stadium" v-resize="onResize">
-        <Field :row-nb="fieldRowNb" :col-nb="fieldColNb" :cell-size="cellSize"></Field>
+        <Field :field="field" :is-vertical="isVertical" :cell-size="cellSize"></Field>
     </v-container>
 </template>
 
@@ -15,8 +15,16 @@
 
         // Component data
         data: () => ({
-            stadiumSize: { x: 0, y: 0 },
-            fieldCells: { long: 26, large: 15 },
+            stadiumSize: { 
+                x: 0, 
+                y: 0 
+            },
+            
+            field: {
+                long: 26, 
+                large: 15,
+                image: 'bb-field',
+            },
         }),
 
         // When element is created
@@ -31,33 +39,37 @@
                     x:  document.getElementById("stadium").clientWidth, 
                     y: document.getElementById("stadium").clientHeight,
                 }
-            }
+            },
         },
 
         // Data generated from other data
         computed: {
-            fieldRowNb () {
-               if (this.stadiumSize.x > this.stadiumSize.y) {
-                    return this.fieldCells.large
-               } else {
-                    return this.fieldCells.long
-               }
+            isVertical () {
+                return ! ( this.stadiumSize.x > this.stadiumSize.y )
             },
 
-            fieldColNb () {
-               if (this.stadiumSize.x > this.stadiumSize.y) {
-                    return this.fieldCells.long
-               } else {
-                    return this.fieldCells.large
-               }
+            verticalCellNb () {
+                if ( this.isVertical ) {
+                    return this.field.long
+                } else {
+                    return this.field.large
+                }
+            },
+
+            horizontalCellNb () {
+                if ( this.isVertical ) {
+                    return this.field.large
+                } else {
+                    return this.field.long
+                }
             },
 
             cellSize () {
-               if (this.stadiumSize.x / this.fieldColNb < this.stadiumSize.y / this.fieldRowNb) {
-                    return Math.floor(this.stadiumSize.x / this.fieldColNb)
-               } else {
-                    return Math.floor(this.stadiumSize.y / this.fieldRowNb)
-               }
+                if ( this.stadiumSize.x / this.horizontalCellNb < this.stadiumSize.y / this.verticalCellNb ) {
+                    return Math.floor( this.stadiumSize.x / this.horizontalCellNb )
+                } else {
+                    return Math.floor( this.stadiumSize.y / this.verticalCellNb )
+                }
             },
         },
     }

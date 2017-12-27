@@ -1,34 +1,53 @@
 <template>
     <table id="field" v-bind:style="styleField">
-        <tr v-for="i in rowNb" :key="i">
-            <td v-for="j in colNb" :key="j" v-bind:style="styleCell"></td>
+        <tr v-for="i in verticalCellNb" :key="i">
+            <Cell v-for="j in horizontalCellNb" :key="j" :cell-size="cellSize"></Cell>
         </tr>
     </table>
 </template>
 
 <script>
+    import Cell from './Cell.vue'
+
     export default {
+        // Other components included
+        components: {
+            Cell,
+        },
+
         // properties from parent component
-        props: ['rowNb', 'colNb', 'cellSize'],
+        props: ['field', 'isVertical', 'cellSize'],
 
         // Data generated from other data
         computed: {
             styleField () {
-                var imgUrl = 'url("/static/img/bb-field-horizontal.jpg")'
-                if (this.rowNb > this.colNb) {
-                    imgUrl = 'url("/static/img/bb-field-vertical.jpg")'
-                }
-
                 return {
-                    backgroundImage: imgUrl,
+                    backgroundImage: this.imgUrl,
                     backgroundSize: '100% 100%',
                 }
             },
 
-            styleCell () {
-                return {
-                    width: this.cellSize + 'px',
-                    height: this.cellSize + 'px',
+            imgUrl () {
+                if ( this.isVertical ) {
+                    return 'url("/static/img/' + this.field.image + '-vertical.jpg")'
+                } else {
+                    return 'url("/static/img/' + this.field.image + '-horizontal.jpg")'
+                }
+            },
+
+            verticalCellNb () {
+                if ( this.isVertical ) {
+                    return this.field.long
+                } else {
+                    return this.field.large
+                }
+            },
+
+            horizontalCellNb () {
+                if ( this.isVertical ) {
+                    return this.field.large
+                } else {
+                    return this.field.long
                 }
             },
         },
@@ -36,9 +55,7 @@
 </script>
 
 <style>
-    table, th, td {
-        border: 1px solid black;
+    table {
         border-collapse: collapse;
-        text-align: center;
     }
 </style>

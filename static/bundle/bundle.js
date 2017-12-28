@@ -33876,14 +33876,15 @@ exports.default = {
     state: {
         stadium: {
             isVertical: false,
-            cellSize: 25,
+            cellSize: 0,
+
             field: {
                 long: 26,
                 large: 17,
-                verticalCellNb: 17,
-                horizontalCellNb: 26,
+                verticalCellNb: 0,
+                horizontalCellNb: 0,
                 image: 'rugby-field',
-                imageURL: 'url("/static/img/rugby-field-horizontal.jpg")'
+                imageURL: ''
             }
         }
     },

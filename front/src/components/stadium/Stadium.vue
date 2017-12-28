@@ -45,7 +45,7 @@
         methods: {
             onResize () {
                 this.stadiumSize = { 
-                    x:  document.getElementById("stadium").clientWidth, 
+                    x: document.getElementById("stadium").clientWidth, 
                     y: document.getElementById("stadium").clientHeight,
                 }
             },

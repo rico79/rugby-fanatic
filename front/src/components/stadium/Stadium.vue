@@ -5,7 +5,7 @@
                 <Player :size="cellSize"></Player>
             </v-flex>
             <v-flex xs12>
-                <Field :field="field" :is-vertical="isFieldVertical" :cell-size="cellSize"></Field>
+                <Field :field="field" :is-vertical="isViewportVertical" :cell-size="cellSize"></Field>
             </v-flex>
         </v-layout>
     </v-container>
@@ -53,20 +53,20 @@
 
         // Data generated from other data
         computed: {
-            isFieldVertical () {
+            isViewportVertical () {
                 return ! (this.stadiumSize.x > this.stadiumSize.y)
             },
 
-            fieldVerticalCellNb () {
-                if (this.isFieldVertical) {
+            verticalCellNb () {
+                if (this.isViewportVertical) {
                     return this.field.long
                 } else {
                     return this.field.large
                 }
             },
 
-            fieldHorizontalCellNb () {
-                if (this.isFieldVertical) {
+            horizontalCellNb () {
+                if (this.isViewportVertical) {
                     return this.field.large
                 } else {
                     return this.field.long
@@ -74,10 +74,10 @@
             },
 
             cellSize () {
-                if (this.stadiumSize.x / this.fieldHorizontalCellNb < this.stadiumSize.y / this.fieldVerticalCellNb) {
-                    return Math.floor(this.stadiumSize.x / this.fieldHorizontalCellNb)
+                if (this.stadiumSize.x / this.horizontalCellNb < this.stadiumSize.y / this.verticalCellNb) {
+                    return Math.floor(this.stadiumSize.x / this.horizontalCellNb)
                 } else {
-                    return Math.floor(this.stadiumSize.y / this.fieldVerticalCellNb)
+                    return Math.floor(this.stadiumSize.y / this.verticalCellNb)
                 }
             },
         },

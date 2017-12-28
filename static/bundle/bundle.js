@@ -32298,28 +32298,28 @@ exports.default = {
 
     // Data generated from other data
     computed: {
-        isFieldVertical: function isFieldVertical() {
+        isViewportVertical: function isViewportVertical() {
             return !(this.stadiumSize.x > this.stadiumSize.y);
         },
-        fieldVerticalCellNb: function fieldVerticalCellNb() {
-            if (this.isFieldVertical) {
+        verticalCellNb: function verticalCellNb() {
+            if (this.isViewportVertical) {
                 return this.field.long;
             } else {
                 return this.field.large;
             }
         },
-        fieldHorizontalCellNb: function fieldHorizontalCellNb() {
-            if (this.isFieldVertical) {
+        horizontalCellNb: function horizontalCellNb() {
+            if (this.isViewportVertical) {
                 return this.field.large;
             } else {
                 return this.field.long;
             }
         },
         cellSize: function cellSize() {
-            if (this.stadiumSize.x / this.fieldHorizontalCellNb < this.stadiumSize.y / this.fieldVerticalCellNb) {
-                return Math.floor(this.stadiumSize.x / this.fieldHorizontalCellNb);
+            if (this.stadiumSize.x / this.horizontalCellNb < this.stadiumSize.y / this.verticalCellNb) {
+                return Math.floor(this.stadiumSize.x / this.horizontalCellNb);
             } else {
-                return Math.floor(this.stadiumSize.y / this.fieldVerticalCellNb);
+                return Math.floor(this.stadiumSize.y / this.verticalCellNb);
             }
         }
     }
@@ -32897,7 +32897,7 @@ var render = function() {
               _c("Field", {
                 attrs: {
                   field: _vm.field,
-                  "is-vertical": _vm.isFieldVertical,
+                  "is-vertical": _vm.isViewportVertical,
                   "cell-size": _vm.cellSize
                 }
               })

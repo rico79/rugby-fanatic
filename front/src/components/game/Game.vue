@@ -6,8 +6,8 @@
 </template>
 
 <script>
-    import Navigation from './Navigation.vue'
-    import Stadium from './stadium/Stadium.vue'
+    import Navigation from '../Navigation.vue'
+    import Stadium from './Stadium.vue'
 
     export default {
         components: {

@@ -4,9 +4,6 @@
 
 <script>
     export default {
-        // properties from parent component
-        props: ['cellSize'],
-
         // Component methods
         methods: {
             allowDrop (event) {
@@ -24,8 +21,8 @@
         computed: {
             styleCell () {
                 return {
-                    width: this.cellSize + 'px',
-                    height: this.cellSize + 'px',
+                    width: this.$store.state.game.stadium.cellSize + 'px',
+                    height: this.$store.state.game.stadium.cellSize + 'px',
                 }
             },
         },

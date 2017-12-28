@@ -1,27 +1,27 @@
 import Vue from 'vue'
+import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 
-import Home from './components/Home.vue'
-import Game from './components/Game.vue'
+import routes from './routes.js'
+import storeInstance from './store.js'
 
+Vue.use(Vuex)
 Vue.use(VueRouter)
 Vue.use(Vuetify)
 
-// Routes of vue-router
-const routes = [
-    { path: '/', component: Home },
-    { path: '/game', component: Game },
-];
-
-// view router
+// vue router
 const router = new VueRouter({
     routes,
-});
+})
+
+// vuex store
+const store = new Vuex.Store(storeInstance)
 
 // App with router
 new Vue({
     el: '#app',
     router,
+    store,
 })

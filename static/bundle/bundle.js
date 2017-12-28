@@ -32250,6 +32250,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 exports.default = {
     // Other components included
@@ -32292,28 +32298,28 @@ exports.default = {
 
     // Data generated from other data
     computed: {
-        isVertical: function isVertical() {
+        isFieldVertical: function isFieldVertical() {
             return !(this.stadiumSize.x > this.stadiumSize.y);
         },
-        verticalCellNb: function verticalCellNb() {
-            if (this.isVertical) {
+        fieldVerticalCellNb: function fieldVerticalCellNb() {
+            if (this.isFieldVertical) {
                 return this.field.long;
             } else {
                 return this.field.large;
             }
         },
-        horizontalCellNb: function horizontalCellNb() {
-            if (this.isVertical) {
+        fieldHorizontalCellNb: function fieldHorizontalCellNb() {
+            if (this.isFieldVertical) {
                 return this.field.large;
             } else {
                 return this.field.long;
             }
         },
         cellSize: function cellSize() {
-            if (this.stadiumSize.x / this.horizontalCellNb < this.stadiumSize.y / this.verticalCellNb) {
-                return Math.floor(this.stadiumSize.x / this.horizontalCellNb);
+            if (this.stadiumSize.x / this.fieldHorizontalCellNb < this.stadiumSize.y / this.fieldVerticalCellNb) {
+                return Math.floor(this.stadiumSize.x / this.fieldHorizontalCellNb);
             } else {
-                return Math.floor(this.stadiumSize.y / this.verticalCellNb);
+                return Math.floor(this.stadiumSize.y / this.fieldVerticalCellNb);
             }
         }
     }
@@ -32513,6 +32519,8 @@ exports.default = {
 //
 //
 //
+//
+//
 
 /***/ }),
 /* 29 */
@@ -32694,19 +32702,21 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "table",
-    { style: _vm.styleField, attrs: { id: "field" } },
-    _vm._l(_vm.verticalCellNb, function(i) {
-      return _c(
-        "tr",
-        { key: i },
-        _vm._l(_vm.horizontalCellNb, function(j) {
-          return _c("Cell", { key: j, attrs: { "cell-size": _vm.cellSize } })
-        })
-      )
-    })
-  )
+  return _c("v-card", { attrs: { id: "field" } }, [
+    _c(
+      "table",
+      { style: _vm.styleField, attrs: { width: "100%" } },
+      _vm._l(_vm.verticalCellNb, function(i) {
+        return _c(
+          "tr",
+          { key: i },
+          _vm._l(_vm.horizontalCellNb, function(j) {
+            return _c("Cell", { key: j, attrs: { "cell-size": _vm.cellSize } })
+          })
+        )
+      })
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -32786,12 +32796,24 @@ Object.defineProperty(exports, "__esModule", {
 //
 //
 //
+//
+//
 
 exports.default = {
+    // properties from parent component
+    props: ['size'],
+
     // Component methods
     methods: {
         drag: function drag(event) {
             event.dataTransfer.setData("text", event.target.id);
+        }
+    },
+
+    // Data generated from other data
+    computed: {
+        playerSize: function playerSize() {
+            return this.size + "px";
         }
     }
 };
@@ -32806,16 +32828,21 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "span",
+    "v-avatar",
     {
-      attrs: { id: "player", draggable: true },
+      staticClass: "black",
+      attrs: { id: "player", size: _vm.playerSize, draggable: true },
       on: {
         dragstart: function($event) {
           _vm.drag($event)
         }
       }
     },
-    [_c("b", [_vm._v("15")])]
+    [
+      _c("span", { staticClass: "white--text body-1" }, [
+        _c("b", [_vm._v("15")])
+      ])
+    ]
   )
 }
 var staticRenderFns = []
@@ -32849,18 +32876,37 @@ var render = function() {
           expression: "onResize"
         }
       ],
-      attrs: { id: "stadium" }
+      attrs: { id: "stadium", "text-xs-center": "" }
     },
     [
-      _c("Player"),
-      _vm._v(" "),
-      _c("Field", {
-        attrs: {
-          field: _vm.field,
-          "is-vertical": _vm.isVertical,
-          "cell-size": _vm.cellSize
-        }
-      })
+      _c(
+        "v-layout",
+        { attrs: { row: "", wrap: "" } },
+        [
+          _c(
+            "v-flex",
+            { attrs: { xs12: "" } },
+            [_c("Player", { attrs: { size: _vm.cellSize } })],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-flex",
+            { attrs: { xs12: "" } },
+            [
+              _c("Field", {
+                attrs: {
+                  field: _vm.field,
+                  "is-vertical": _vm.isFieldVertical,
+                  "cell-size": _vm.cellSize
+                }
+              })
+            ],
+            1
+          )
+        ],
+        1
+      )
     ],
     1
   )

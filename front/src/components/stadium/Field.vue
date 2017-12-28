@@ -1,9 +1,11 @@
 <template>
-    <table id="field" v-bind:style="styleField">
-        <tr v-for="i in verticalCellNb" :key="i">
-            <Cell v-for="j in horizontalCellNb" :key="j" :cell-size="cellSize"></Cell>
-        </tr>
-    </table>
+    <v-card id="field">
+        <table :style="styleField" :width="'100%'">
+            <tr v-for="i in verticalCellNb" :key="i">
+                <Cell v-for="j in horizontalCellNb" :key="j" :cell-size="cellSize"></Cell>
+            </tr>
+        </table>
+    </v-card>
 </template>
 
 <script>

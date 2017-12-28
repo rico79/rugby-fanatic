@@ -17,7 +17,7 @@ export default {
     },
 
     mutations: {
-        resizeStadium (state, stadiumSize) {
+        redesignStadium (state, stadiumSize) {
             // Set if vertical
             state.stadium.isVertical = (stadiumSize.width < stadiumSize.height)
 

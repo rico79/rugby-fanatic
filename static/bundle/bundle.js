@@ -33250,7 +33250,7 @@ exports.default = {
     // Component methods
     methods: {
         onResize: function onResize() {
-            this.$store.commit('resizeStadium', {
+            this.$store.commit('redesignStadium', {
                 width: document.getElementById("stadium").clientWidth,
                 height: document.getElementById("stadium").clientHeight
             });
@@ -33890,7 +33890,7 @@ exports.default = {
     },
 
     mutations: {
-        resizeStadium: function resizeStadium(state, stadiumSize) {
+        redesignStadium: function redesignStadium(state, stadiumSize) {
             // Set if vertical
             state.stadium.isVertical = stadiumSize.width < stadiumSize.height;
 

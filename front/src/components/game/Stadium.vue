@@ -30,7 +30,7 @@
         // Component methods
         methods: {
             onResize () {
-                this.$store.commit('resizeStadium', 
+                this.$store.commit('redesignStadium', 
                     {
                         width: document.getElementById("stadium").clientWidth, 
                         height: document.getElementById("stadium").clientHeight

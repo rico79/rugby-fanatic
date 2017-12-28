@@ -1,6 +1,6 @@
 <template>
-    <v-avatar id="player" class="black" :size="playerSize" :draggable="true" @dragstart="drag($event)">
-        <span class="white--text body-1"><b>15</b></span>
+    <v-avatar id="player" class="grey darken-4" :size="playerSize" :draggable="true" @dragstart="drag($event)">
+        <span class="white--text caption"><b>15</b></span>
     </v-avatar>
 </template>
 

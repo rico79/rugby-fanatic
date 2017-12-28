@@ -32830,7 +32830,7 @@ var render = function() {
   return _c(
     "v-avatar",
     {
-      staticClass: "black",
+      staticClass: "grey darken-4",
       attrs: { id: "player", size: _vm.playerSize, draggable: true },
       on: {
         dragstart: function($event) {
@@ -32839,7 +32839,7 @@ var render = function() {
       }
     },
     [
-      _c("span", { staticClass: "white--text body-1" }, [
+      _c("span", { staticClass: "white--text caption" }, [
         _c("b", [_vm._v("15")])
       ])
     ]

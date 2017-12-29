@@ -33138,7 +33138,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
-//
 
 exports.default = {
     components: {
@@ -33889,17 +33888,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "v-app",
-    [
-      _c("Navigation"),
-      _vm._v(" "),
-      _c("span", [_vm._v(_vm._s(_vm.$store.state.game.stadium.positions))]),
-      _vm._v(" "),
-      _c("Stadium")
-    ],
-    1
-  )
+  return _c("v-app", [_c("Navigation"), _vm._v(" "), _c("Stadium")], 1)
 }
 var staticRenderFns = []
 render._withStripped = true

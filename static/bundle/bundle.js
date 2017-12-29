@@ -33138,6 +33138,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
 
 exports.default = {
     components: {
@@ -33214,34 +33215,15 @@ var _Field = __webpack_require__(26);
 
 var _Field2 = _interopRequireDefault(_Field);
 
-var _Player = __webpack_require__(37);
-
-var _Player2 = _interopRequireDefault(_Player);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 exports.default = {
     // Other components included
     components: {
-        Field: _Field2.default,
-        Player: _Player2.default
+        Field: _Field2.default
     },
 
-    // When element is created
+    // When element is mounted
     mounted: function mounted() {
         this.onResize();
     },
@@ -33256,7 +33238,16 @@ exports.default = {
             });
         }
     }
-};
+}; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /***/ }),
 /* 26 */
@@ -33266,7 +33257,7 @@ exports.default = {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_bustCache_Field_vue__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_bustCache_Field_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_bustCache_Field_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5c0967e6_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_bustCache_Field_vue__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5c0967e6_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_bustCache_Field_vue__ = __webpack_require__(39);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
@@ -33415,9 +33406,16 @@ exports.default = {
     computed: {
         styleField: function styleField() {
             return {
-                backgroundImage: this.$store.state.game.stadium.field.imageURL,
+                backgroundImage: this.imageURL,
                 backgroundSize: '100% 100%'
             };
+        },
+        imageURL: function imageURL() {
+            if (this.$store.state.game.stadium.isVertical) {
+                return 'url("/static/img/' + this.$store.state.game.stadium.field.image + '-vertical.jpg")';
+            } else {
+                return 'url("/static/img/' + this.$store.state.game.stadium.field.image + '-horizontal.jpg")';
+            }
         }
     }
 }; //
@@ -33454,7 +33452,7 @@ exports.default = {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_bustCache_Cell_vue__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_bustCache_Cell_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_bustCache_Cell_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_51b69a1f_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_bustCache_Cell_vue__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_51b69a1f_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_bustCache_Cell_vue__ = __webpack_require__(38);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
@@ -33553,21 +33551,33 @@ exports.push([module.i, "\ntd {\n    text-align: center;\n}\n", ""]);
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-//
-//
-//
-//
+
+var _Player = __webpack_require__(35);
+
+var _Player2 = _interopRequireDefault(_Player);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
+    // Other components included
+    components: {
+        Player: _Player2.default
+    },
+
+    // Data passed from parent component
+    props: ['cellId'],
+
     // Component methods
     methods: {
-        allowDrop: function allowDrop(event) {
+        dragOver: function dragOver(event) {
             event.preventDefault();
         },
         drop: function drop(event) {
             event.preventDefault();
-            var data = event.dataTransfer.getData("text");
-            event.target.appendChild(document.getElementById(data));
+            var playerId = event.dataTransfer.getData("text");
+            var cellId = event.target.id;
+            event.target.appendChild(document.getElementById(playerId));
+            this.$store.commit('playerMovesTo', { playerId: playerId, cellId: this.cellId });
         }
     },
 
@@ -33578,112 +33588,27 @@ exports.default = {
                 width: this.$store.state.game.stadium.cellSize + 'px',
                 height: this.$store.state.game.stadium.cellSize + 'px'
             };
+        },
+        playerInCell: function playerInCell() {
+            return this.$store.getters.getPlayerInCell(this.cellId);
         }
     }
-};
+}; //
+//
+//
+//
+//
+//
 
 /***/ }),
 /* 35 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("td", {
-    style: _vm.styleCell,
-    on: {
-      drop: function($event) {
-        _vm.drop($event)
-      },
-      dragover: function($event) {
-        _vm.allowDrop($event)
-      }
-    }
-  })
-}
-var staticRenderFns = []
-render._withStripped = true
-var esExports = { render: render, staticRenderFns: staticRenderFns }
-/* harmony default export */ __webpack_exports__["a"] = (esExports);
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-51b69a1f", esExports)
-  }
-}
-
-/***/ }),
-/* 36 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("v-card", { attrs: { id: "field" } }, [
-    _vm.$store.state.game.stadium.isVertical
-      ? _c(
-          "table",
-          { style: _vm.styleField, attrs: { width: "100%" } },
-          _vm._l(_vm.$store.state.game.stadium.field.long, function(i) {
-            return _c(
-              "tr",
-              { key: i },
-              _vm._l(_vm.$store.state.game.stadium.field.large, function(j) {
-                return _c("Cell", {
-                  key: j,
-                  attrs: {
-                    id: _vm.$store.getters.getFieldCellId(
-                      j,
-                      1 + _vm.$store.state.game.stadium.field.long - i
-                    )
-                  }
-                })
-              })
-            )
-          })
-        )
-      : _c(
-          "table",
-          { style: _vm.styleField, attrs: { width: "100%" } },
-          _vm._l(_vm.$store.state.game.stadium.field.large, function(i) {
-            return _c(
-              "tr",
-              { key: i },
-              _vm._l(_vm.$store.state.game.stadium.field.long, function(j) {
-                return _c("Cell", {
-                  key: j,
-                  attrs: { id: _vm.$store.getters.getFieldCellId(i, j) }
-                })
-              })
-            )
-          })
-        )
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-var esExports = { render: render, staticRenderFns: staticRenderFns }
-/* harmony default export */ __webpack_exports__["a"] = (esExports);
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-5c0967e6", esExports)
-  }
-}
-
-/***/ }),
-/* 37 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_bustCache_Player_vue__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_bustCache_Player_vue__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_bustCache_Player_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_bustCache_Player_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_6acec244_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_bustCache_Player_vue__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_6acec244_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_bustCache_Player_vue__ = __webpack_require__(37);
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -33729,7 +33654,7 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 38 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -33752,9 +33677,12 @@ Object.defineProperty(exports, "__esModule", {
 //
 
 exports.default = {
+    // Data passed from parent component
+    props: ['player'],
+
     // Component methods
     methods: {
-        drag: function drag(event) {
+        dragStart: function dragStart(event) {
             event.dataTransfer.setData("text", event.target.id);
         }
     },
@@ -33762,13 +33690,13 @@ exports.default = {
     // Data generated from other data
     computed: {
         playerSize: function playerSize() {
-            return this.$store.state.game.stadium.cellSize + "px";
+            return Math.ceil(this.$store.state.game.stadium.cellSize * 0.8) + "px";
         }
     }
 };
 
 /***/ }),
-/* 39 */
+/* 37 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -33779,17 +33707,17 @@ var render = function() {
   return _c(
     "v-avatar",
     {
-      staticClass: "grey darken-4",
-      attrs: { id: "player", size: _vm.playerSize, draggable: true },
+      class: _vm.player.color,
+      attrs: { id: _vm.player.id, size: _vm.playerSize, draggable: true },
       on: {
         dragstart: function($event) {
-          _vm.drag($event)
+          _vm.dragStart($event)
         }
       }
     },
     [
       _c("span", { staticClass: "white--text caption" }, [
-        _c("b", [_vm._v("15")])
+        _c("b", [_vm._v(_vm._s(_vm.player.number))])
       ])
     ]
   )
@@ -33802,6 +33730,109 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-6acec244", esExports)
+  }
+}
+
+/***/ }),
+/* 38 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "td",
+    {
+      style: _vm.styleCell,
+      attrs: { id: _vm.cellId },
+      on: {
+        drop: function($event) {
+          _vm.drop($event)
+        },
+        dragover: function($event) {
+          _vm.dragOver($event)
+        }
+      }
+    },
+    [
+      _vm.playerInCell
+        ? _c("Player", { attrs: { player: _vm.playerInCell } })
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+/* harmony default export */ __webpack_exports__["a"] = (esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-51b69a1f", esExports)
+  }
+}
+
+/***/ }),
+/* 39 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("v-card", { style: _vm.styleField, attrs: { id: "field" } }, [
+    _vm.$store.state.game.stadium.isVertical
+      ? _c(
+          "table",
+          { attrs: { width: "100%" } },
+          _vm._l(_vm.$store.state.game.stadium.field.long, function(i) {
+            return _c(
+              "tr",
+              { key: i },
+              _vm._l(_vm.$store.state.game.stadium.field.large, function(j) {
+                return _c("Cell", {
+                  key: j,
+                  attrs: {
+                    "cell-id": _vm.$store.getters.getFieldCellId(
+                      j,
+                      1 + _vm.$store.state.game.stadium.field.long - i
+                    )
+                  }
+                })
+              })
+            )
+          })
+        )
+      : _c(
+          "table",
+          { attrs: { width: "100%" } },
+          _vm._l(_vm.$store.state.game.stadium.field.large, function(i) {
+            return _c(
+              "tr",
+              { key: i },
+              _vm._l(_vm.$store.state.game.stadium.field.long, function(j) {
+                return _c("Cell", {
+                  key: j,
+                  attrs: { "cell-id": _vm.$store.getters.getFieldCellId(i, j) }
+                })
+              })
+            )
+          })
+        )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+/* harmony default export */ __webpack_exports__["a"] = (esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-5c0967e6", esExports)
   }
 }
 
@@ -33831,11 +33862,7 @@ var render = function() {
       _c(
         "v-layout",
         { attrs: { row: "", wrap: "" } },
-        [
-          _c("v-flex", { attrs: { xs12: "" } }, [_c("Player")], 1),
-          _vm._v(" "),
-          _c("v-flex", { attrs: { xs12: "" } }, [_c("Field")], 1)
-        ],
+        [_c("v-flex", { attrs: { xs12: "" } }, [_c("Field")], 1)],
         1
       )
     ],
@@ -33862,7 +33889,17 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("v-app", [_c("Navigation"), _vm._v(" "), _c("Stadium")], 1)
+  return _c(
+    "v-app",
+    [
+      _c("Navigation"),
+      _vm._v(" "),
+      _c("span", [_vm._v(_vm._s(_vm.$store.state.game.stadium.positions))]),
+      _vm._v(" "),
+      _c("Stadium")
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -33919,8 +33956,28 @@ exports.default = {
             field: {
                 long: 26,
                 large: 17,
-                image: 'rugby-field',
-                imageURL: ''
+                image: 'rugby-field'
+            },
+
+            players: {
+                player_10: {
+                    id: 'player_10',
+                    number: 10,
+                    color: "grey darken-4"
+                },
+                player_15: {
+                    id: 'player_15',
+                    number: 15,
+                    color: "grey darken-4"
+                }
+            },
+
+            positions: {
+                player_10: 'field_cell_1_1',
+                field_cell_1_1: 'player_10',
+
+                player_15: 'field_cell_10_10',
+                field_cell_10_10: 'player_15'
             }
         }
     },
@@ -33930,24 +33987,42 @@ exports.default = {
             return function (long, large) {
                 return 'field_cell_' + long + '_' + large;
             };
+        },
+
+        getPlayerInCell: function getPlayerInCell(state) {
+            return function (cellId) {
+                var playerId = state.stadium.positions[cellId];
+                if (playerId) {
+                    return state.stadium.players[playerId];
+                } else {
+                    return false;
+                }
+            };
         }
     },
 
     mutations: {
+        playerMovesTo: function playerMovesTo(state, move) {
+            // Player quit position
+            var playerFromCellId = state.stadium.positions[move.playerId];
+            delete state.stadium.positions[playerFromCellId];
+
+            // To new position
+            state.stadium.positions[move.playerId] = move.cellId;
+            state.stadium.positions[move.cellId] = move.playerId;
+        },
         redesignStadium: function redesignStadium(state, stadiumSize) {
             // Set if vertical
             state.stadium.isVertical = stadiumSize.width < stadiumSize.height;
 
-            // Set field nb of cells and update image URL
+            // Set field nb of cells
             var fieldVerticalCellNb, fieldHorizontalCellNb;
             if (state.stadium.isVertical) {
                 fieldVerticalCellNb = state.stadium.field.long;
                 fieldHorizontalCellNb = state.stadium.field.large;
-                state.stadium.field.imageURL = 'url("/static/img/' + state.stadium.field.image + '-vertical.jpg")';
             } else {
                 fieldHorizontalCellNb = state.stadium.field.long;
                 fieldVerticalCellNb = state.stadium.field.large;
-                state.stadium.field.imageURL = 'url("/static/img/' + state.stadium.field.image + '-horizontal.jpg")';
             }
 
             // Compute cell size

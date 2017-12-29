@@ -33430,6 +33430,21 @@ exports.default = {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /***/ }),
 /* 31 */
@@ -33609,21 +33624,44 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("v-card", { attrs: { id: "field" } }, [
-    _c(
-      "table",
-      { style: _vm.styleField, attrs: { width: "100%" } },
-      _vm._l(_vm.$store.state.game.stadium.field.verticalCellNb, function(i) {
-        return _c(
-          "tr",
-          { key: i },
-          _vm._l(_vm.$store.state.game.stadium.field.horizontalCellNb, function(
-            j
-          ) {
-            return _c("Cell", { key: j })
+    _vm.$store.state.game.stadium.isVertical
+      ? _c(
+          "table",
+          { style: _vm.styleField, attrs: { width: "100%" } },
+          _vm._l(_vm.$store.state.game.stadium.field.long, function(i) {
+            return _c(
+              "tr",
+              { key: i },
+              _vm._l(_vm.$store.state.game.stadium.field.large, function(j) {
+                return _c("Cell", {
+                  key: j,
+                  attrs: {
+                    id: _vm.$store.getters.getFieldCellId(
+                      j,
+                      1 + _vm.$store.state.game.stadium.field.long - i
+                    )
+                  }
+                })
+              })
+            )
           })
         )
-      })
-    )
+      : _c(
+          "table",
+          { style: _vm.styleField, attrs: { width: "100%" } },
+          _vm._l(_vm.$store.state.game.stadium.field.large, function(i) {
+            return _c(
+              "tr",
+              { key: i },
+              _vm._l(_vm.$store.state.game.stadium.field.long, function(j) {
+                return _c("Cell", {
+                  key: j,
+                  attrs: { id: _vm.$store.getters.getFieldCellId(i, j) }
+                })
+              })
+            )
+          })
+        )
   ])
 }
 var staticRenderFns = []
@@ -33881,11 +33919,17 @@ exports.default = {
             field: {
                 long: 26,
                 large: 17,
-                verticalCellNb: 0,
-                horizontalCellNb: 0,
                 image: 'rugby-field',
                 imageURL: ''
             }
+        }
+    },
+
+    getters: {
+        getFieldCellId: function getFieldCellId(state) {
+            return function (long, large) {
+                return 'field_cell_' + long + '_' + large;
+            };
         }
     },
 
@@ -33894,19 +33938,20 @@ exports.default = {
             // Set if vertical
             state.stadium.isVertical = stadiumSize.width < stadiumSize.height;
 
-            // Update field nb of cells and image URL
+            // Set field nb of cells and update image URL
+            var fieldVerticalCellNb, fieldHorizontalCellNb;
             if (state.stadium.isVertical) {
-                state.stadium.field.verticalCellNb = state.stadium.field.long;
-                state.stadium.field.horizontalCellNb = state.stadium.field.large;
+                fieldVerticalCellNb = state.stadium.field.long;
+                fieldHorizontalCellNb = state.stadium.field.large;
                 state.stadium.field.imageURL = 'url("/static/img/' + state.stadium.field.image + '-vertical.jpg")';
             } else {
-                state.stadium.field.horizontalCellNb = state.stadium.field.long;
-                state.stadium.field.verticalCellNb = state.stadium.field.large;
+                fieldHorizontalCellNb = state.stadium.field.long;
+                fieldVerticalCellNb = state.stadium.field.large;
                 state.stadium.field.imageURL = 'url("/static/img/' + state.stadium.field.image + '-horizontal.jpg")';
             }
 
             // Compute cell size
-            state.stadium.cellSize = Math.min(Math.floor(stadiumSize.width / state.stadium.field.horizontalCellNb), Math.floor(stadiumSize.height / state.stadium.field.verticalCellNb));
+            state.stadium.cellSize = Math.min(Math.floor(stadiumSize.width / fieldHorizontalCellNb), Math.floor(stadiumSize.height / fieldVerticalCellNb));
         }
     }
 };

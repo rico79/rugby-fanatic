@@ -6,7 +6,7 @@
         :draggable="true" 
         @dragstart="dragStart($event)"
     >
-        <span class="white--text caption"><b>{{ player.number }}</b></span>
+        <span class="white--text caption">{{ player.number }}</span>
     </v-avatar>
 </template>
 

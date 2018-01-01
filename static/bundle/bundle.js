@@ -33716,7 +33716,7 @@ var render = function() {
     },
     [
       _c("span", { staticClass: "white--text caption" }, [
-        _c("b", [_vm._v(_vm._s(_vm.player.number))])
+        _vm._v(_vm._s(_vm.player.number))
       ])
     ]
   )
@@ -33962,8 +33962,8 @@ exports.default = {
             },
 
             positions: {
-                player_10: 'field_cell_1_1',
-                field_cell_1_1: 'player_10',
+                player_10: 'field_cell_10_11',
+                field_cell_10_11: 'player_10',
 
                 player_15: 'field_cell_10_10',
                 field_cell_10_10: 'player_15'

@@ -25,8 +25,8 @@ export default {
             },
 
             positions: {
-                player_10: 'field_cell_1_1',
-                field_cell_1_1: 'player_10',
+                player_10: 'field_cell_10_11',
+                field_cell_10_11: 'player_10',
                 
                 player_15: 'field_cell_10_10',
                 field_cell_10_10: 'player_15',

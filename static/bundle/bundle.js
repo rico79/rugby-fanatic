@@ -33943,7 +33943,7 @@ exports.default = {
             cellSize: 0,
 
             field: {
-                long: 26,
+                long: 28,
                 large: 17,
                 image: 'rugby-field'
             },

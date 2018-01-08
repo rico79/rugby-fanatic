@@ -1,0 +1,11 @@
+from os import environ as env
+
+# APP
+APP_SECRET_KEY = env.get('APP_SECRET_KEY', '')
+
+# AUTH0
+AUTH0_DOMAIN = env.get('AUTH0_DOMAIN', '')
+AUTH0_USERINFO = AUTH0_DOMAIN + '/userinfo'
+AUTH0_LOGIN_CALLBACK = env.get('AUTH0_LOGIN_CALLBACK', '')
+AUTH0_CLIENT_ID = env.get('AUTH0_CLIENT_ID', '')
+AUTH0_CLIENT_SECRET = env.get('AUTH0_CLIENT_SECRET', '')

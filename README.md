@@ -56,6 +56,17 @@ And that's it !! You can now develop...
 
 ## Run the app locally
 
+First you need to set the Auth0 data in environement variables:
+
+```
+APP_SECRET_KEY
+$ export APP_SECRET_KEY="secret_key"
+$ export AUTH0_DOMAIN="https://domain.auth0.com"
+$ export AUTH0_LOGIN_CALLBACK="http://localhost:5000/callback"
+$ export AUTH0_CLIENT_ID="Your client ID"
+$ export AUTH0_CLIENT_SECRET="Your secret key"
+```
+
 From rugby-fanatic main directory run the app (if you use Ubuntu, you should probably replace python by python3):
 
 ```

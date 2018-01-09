@@ -14,6 +14,7 @@ import json
 import config_vars
 
 app = Flask(__name__)
+app.secret_key = config_vars.APP_SECRET_KEY
 
 # Wrap auth
 def requires_auth(f):
@@ -99,6 +100,5 @@ def logout():
 
 # Run server
 if __name__ == '__main__':
-    app.secret_key = config_vars.APP_SECRET_KEY
     app.run(debug=True, use_reloader=True)
 

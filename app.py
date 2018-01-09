@@ -50,7 +50,6 @@ def home():
 
 @app.route('/home')
 def home_page():
-    print('secret key : ' + config_vars.APP_SECRET_KEY)
     return render_template('home.html')
 
 @app.route('/dashboard')

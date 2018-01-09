@@ -50,6 +50,7 @@ def home():
 
 @app.route('/home')
 def home_page():
+    print(config_vars.APP_SECRET_KEY)
     return render_template('home.html')
 
 @app.route('/dashboard')
@@ -100,6 +101,5 @@ def logout():
 # Run server
 if __name__ == '__main__':
     app.secret_key = config_vars.APP_SECRET_KEY
-    app.config['SESSION_TYPE'] = 'filesystem'
     app.run(debug=True, use_reloader=True)
 

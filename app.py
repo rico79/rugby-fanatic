@@ -4,6 +4,7 @@ from flask import render_template
 from flask import request
 from flask import session
 from flask import url_for
+from flask import jsonify
 from flask_oauthlib.client import OAuth
 from six.moves.urllib.parse import urlencode
 from functools import wraps
@@ -16,7 +17,7 @@ import config_vars
 app = Flask(__name__)
 app.secret_key = config_vars.APP_SECRET_KEY
 
-# Wrap auth
+# Wrap auth by adding decorator to route (just before the def) : @requires_auth
 def requires_auth(f):
     @wraps(f)
     def decorated(*args, **kwargs):
@@ -49,16 +50,12 @@ auth0 = oauth.remote_app(
 def home():
     return app.send_static_file('index.html')
 
-@app.route('/home')
-def home_page():
-    return render_template('home.html')
-
-@app.route('/dashboard')
-@requires_auth
-def dashboard():
-    return render_template('dashboard.html',
-                           userinfo=session['profile'],
-                           userinfo_pretty=json.dumps(session['jwt_payload'], indent=4))
+@app.route('/connecteduser')
+def connected_user():
+    if 'profile' not in session:
+        return jsonify({})
+    else:
+        return jsonify(session['profile'])
 
 @app.route('/login')
 def login():
@@ -80,20 +77,19 @@ def callback_handling():
     userinfo = resp.json()
     
     # Store user information in flask session.
-    session['jwt_payload'] = userinfo
-    
     session['profile'] = {
         'user_id': userinfo['sub'],
         'name': userinfo['name'],
         'picture': userinfo['picture']
     }
     
-    return redirect('/dashboard')
+    return redirect('/')
 
 @app.route('/logout')
 def logout():
     # Clear session stored data
     session.clear()
+
     # Redirect user to logout endpoint
     params = {'returnTo': url_for('home', _external=True), 'client_id': config_vars.AUTH0_CLIENT_ID}
     return redirect(auth0.base_url + '/v2/logout?' + urlencode(params))

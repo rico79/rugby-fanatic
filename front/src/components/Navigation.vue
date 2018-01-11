@@ -11,5 +11,16 @@
         <v-btn icon to="/game" exact router>
             <v-icon>subscriptions</v-icon>
         </v-btn>
+        <User></User>
     </v-toolbar>
 </template>
+
+<script>
+    import User from './User.vue'
+
+    export default {
+        components: {
+            User,
+        }
+    }
+</script>

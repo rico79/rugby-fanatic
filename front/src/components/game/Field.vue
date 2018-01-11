@@ -1,7 +1,7 @@
 <template>
     <v-card id="field" :style="styleField">
         <!-- If the field is vertical -->
-        <table v-if="$store.state.game.stadium.isVertical":width="'100%'">
+        <table v-if="$store.state.game.stadium.isVertical" :width="'100%'">
             <tr v-for="i in $store.state.game.stadium.field.long" :key="i">
                 <Cell 
                     :cell-id="$store.getters.getFieldCellId(j, 1 + $store.state.game.stadium.field.long - i)"

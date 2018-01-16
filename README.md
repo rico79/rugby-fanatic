@@ -8,11 +8,10 @@ Rugby board game
 
 First, install python > 3.6 : https://wiki.python.org/moin/BeginnersGuide/Download
 
-After, you have to install Flask and gunicorn to make it work locally (if you use Ubuntu, you should probably replace pip by pip3):
+After, you have to install dependencies to make it work locally (if you use Ubuntu, you should probably replace pip by pip3):
 
 ```
-$ pip install Flask
-$ pip install gunicorn
+$ pip install -r requirements.txt
 ```
 
 ### Nodejs ecosystem
@@ -59,7 +58,6 @@ And that's it !! You can now develop...
 First you need to set the Auth0 data in environement variables:
 
 ```
-APP_SECRET_KEY
 $ export APP_SECRET_KEY="secret_key"
 $ export AUTH0_DOMAIN="https://domain.auth0.com"
 $ export AUTH0_LOGIN_CALLBACK="http://localhost:5000/callback"

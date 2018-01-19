@@ -32988,10 +32988,34 @@ var _User2 = _interopRequireDefault(_User);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
+    // Other components included
     components: {
         User: _User2.default
+    },
+
+    // Component Data
+    data: function data() {
+        return {
+            id: 'navigation',
+            title: 'Rugby Fanatic',
+            logo: '/static/img/logo_32.png',
+            menuColor: 'grey darken-3',
+            links: [{ url: '/', icon: 'home' }, { url: '/game', icon: 'subscriptions' }]
+        };
     }
 }; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -33175,42 +33199,91 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-toolbar",
-    {
-      attrs: {
-        id: "navigation",
-        color: "grey darken-3",
-        "elevation-10": "",
-        dark: "",
-        dense: ""
-      }
-    },
+    "div",
     [
-      _c("v-btn", { attrs: { icon: "" } }, [
-        _c("img", {
-          attrs: { src: "/static/img/logo_32.png", alt: "Rugby Fanatic" }
-        })
-      ]),
-      _vm._v(" "),
-      _c("v-toolbar-title", [_vm._v("Rugby Fanatic")]),
-      _vm._v(" "),
-      _c("v-spacer"),
-      _vm._v(" "),
       _c(
-        "v-btn",
-        { attrs: { icon: "", to: "/", exact: "", router: "" } },
-        [_c("v-icon", [_vm._v("home")])],
-        1
+        "v-toolbar",
+        {
+          staticClass: "hidden-xs-only",
+          attrs: {
+            id: _vm.id,
+            color: _vm.menuColor,
+            "elevation-10": "",
+            dark: "",
+            dense: ""
+          }
+        },
+        [
+          _c("v-btn", { attrs: { icon: "" } }, [
+            _c("img", { attrs: { src: _vm.logo, alt: _vm.title } })
+          ]),
+          _vm._v(" "),
+          _c("v-toolbar-title", [_vm._v(_vm._s(_vm.title))]),
+          _vm._v(" "),
+          _c("v-spacer"),
+          _vm._v(" "),
+          _vm._l(_vm.links, function(link) {
+            return _c(
+              "v-btn",
+              {
+                key: link,
+                attrs: { icon: "", to: link.url, exact: "", router: "" }
+              },
+              [_c("v-icon", [_vm._v(_vm._s(link.icon))])],
+              1
+            )
+          }),
+          _vm._v(" "),
+          _c("User")
+        ],
+        2
       ),
       _vm._v(" "),
       _c(
-        "v-btn",
-        { attrs: { icon: "", to: "/game", exact: "", router: "" } },
-        [_c("v-icon", [_vm._v("subscriptions")])],
-        1
-      ),
-      _vm._v(" "),
-      _c("User")
+        "v-toolbar",
+        {
+          staticClass: "hidden-sm-and-up",
+          attrs: {
+            id: _vm.id,
+            color: _vm.menuColor,
+            "elevation-10": "",
+            dark: "",
+            dense: "",
+            extended: ""
+          }
+        },
+        [
+          _c("v-btn", { attrs: { icon: "" } }, [
+            _c("img", { attrs: { src: _vm.logo, alt: _vm.title } })
+          ]),
+          _vm._v(" "),
+          _c("v-toolbar-title", [_vm._v(_vm._s(_vm.title))]),
+          _vm._v(" "),
+          _c("v-spacer"),
+          _vm._v(" "),
+          _vm._l(_vm.links, function(link) {
+            return _c(
+              "v-btn",
+              {
+                key: link,
+                attrs: {
+                  slot: "extension",
+                  icon: "",
+                  to: link.url,
+                  exact: "",
+                  router: ""
+                },
+                slot: "extension"
+              },
+              [_c("v-icon", [_vm._v(_vm._s(link.icon))])],
+              1
+            )
+          }),
+          _vm._v(" "),
+          _c("User")
+        ],
+        2
+      )
     ],
     1
   )

@@ -1,26 +1,53 @@
 <template>
-    <v-toolbar id="navigation" color="grey darken-3" elevation-10 dark dense>
-        <v-btn icon>
-            <img src="/static/img/logo_32.png" alt="Rugby Fanatic">
-        </v-btn>
-        <v-toolbar-title>Rugby Fanatic</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-btn icon to="/" exact router>
-            <v-icon>home</v-icon>
-        </v-btn>
-        <v-btn icon to="/game" exact router>
-            <v-icon>subscriptions</v-icon>
-        </v-btn>
-        <User></User>
-    </v-toolbar>
+    <div>
+        <!-- If laptop, desktop or tablet -->
+        <v-toolbar class="hidden-xs-only" :id="id" :color="menuColor" elevation-10 dark dense>
+            <v-btn icon>
+                <img :src="logo" :alt="title">
+            </v-btn>
+            <v-toolbar-title>{{ title }}</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-btn v-for="link in links" :key="link" icon :to="link.url" exact router>
+                <v-icon>{{ link.icon }}</v-icon>
+            </v-btn>
+            <User></User>
+        </v-toolbar>
+        <!-- If mobile phone -->
+        <v-toolbar class="hidden-sm-and-up" :id="id" :color="menuColor" elevation-10 dark dense extended>
+            <v-btn icon>
+                <img :src="logo" :alt="title">
+            </v-btn>
+            <v-toolbar-title>{{ title }}</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-btn v-for="link in links" :key="link" icon :to="link.url" exact router slot="extension">
+                <v-icon>{{ link.icon }}</v-icon>
+            </v-btn>
+            <User></User>
+        </v-toolbar>
+    </div>
 </template>
 
 <script>
     import User from './User.vue'
 
     export default {
+        // Other components included
         components: {
             User,
-        }
+        },
+
+        // Component Data
+        data () {
+            return {
+                id: 'navigation',
+                title: 'Rugby Fanatic',
+                logo: '/static/img/logo_32.png',
+                menuColor: 'grey darken-3',
+                links: [
+                    {url: '/', icon: 'home'},
+                    {url: '/game', icon: 'subscriptions'},
+                ],
+            }
+        },
     }
 </script>

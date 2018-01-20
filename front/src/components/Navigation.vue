@@ -7,7 +7,7 @@
             </v-btn>
             <v-toolbar-title>{{ title }}</v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-btn v-for="link in links" :key="link" icon :to="link.url" exact router>
+            <v-btn v-for="link in links" :key="link.url" icon :to="link.url" exact router>
                 <v-icon>{{ link.icon }}</v-icon>
             </v-btn>
             <User></User>
@@ -19,7 +19,7 @@
             </v-btn>
             <v-toolbar-title>{{ title }}</v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-btn v-for="link in links" :key="link" icon :to="link.url" exact router slot="extension">
+            <v-btn v-for="link in links" :key="link.url" icon :to="link.url" exact router slot="extension">
                 <v-icon>{{ link.icon }}</v-icon>
             </v-btn>
             <User></User>
@@ -46,6 +46,8 @@
                 links: [
                     {url: '/', icon: 'home'},
                     {url: '/game', icon: 'subscriptions'},
+                    {url: '/teams', icon: 'library_books'},
+                    {url: '/users', icon: 'supervisor_account'},
                 ],
             }
         },

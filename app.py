@@ -6,6 +6,7 @@ from flask import session
 from flask import url_for
 from flask import jsonify
 from flask_oauthlib.client import OAuth
+from flask_pymongo import PyMongo
 from six.moves.urllib.parse import urlencode
 from functools import wraps
 from datetime import datetime
@@ -16,6 +17,14 @@ import config_vars
 
 app = Flask(__name__)
 app.secret_key = config_vars.APP_SECRET_KEY
+
+# connect to MongoDB
+app.config['MONGO_HOST'] = config_vars.DB_HOST
+app.config['MONGO_PORT'] = config_vars.DB_PORT
+app.config['MONGO_DBNAME'] = config_vars.DB_DBNAME
+app.config['MONGO_USERNAME'] = config_vars.DB_USERNAME
+app.config['MONGO_PASSWORD'] = config_vars.DB_PASSWORD
+mongo = PyMongo(app, config_prefix='MONGO')
 
 # Wrap auth by adding decorator to route (just before the def) : @requires_auth
 def requires_auth(f):
@@ -75,13 +84,24 @@ def callback_handling():
     headers = {'authorization': 'Bearer ' + resp['access_token']}
     resp = requests.get(url, headers=headers)
     userinfo = resp.json()
-    
-    # Store user information in flask session.
-    session['profile'] = {
+
+    #Set user profile
+    userprofile = {
         'user_id': userinfo['sub'],
         'name': userinfo['name'],
         'picture': userinfo['picture']
     }
+
+    # Save user in db
+    result = mongo.db.users.replace_one(
+        {'user_id': userprofile['user_id']},
+        userprofile,
+        True,
+    )
+    
+    # Store user information in flask session.
+    if result.acknowledged :
+        session['profile'] = userprofile
     
     return redirect('/')
 

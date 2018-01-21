@@ -16,7 +16,7 @@
     export default {
         // When element is mounted
         mounted () {
-            this.$store.dispatch('fetchUserConnected')
+            this.$store.dispatch('fetchConnectedUser')
         },
 
         // Component methods

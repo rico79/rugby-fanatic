@@ -10,7 +10,7 @@
             <v-btn v-for="link in links" :key="link.url" icon :to="link.url" exact router>
                 <v-icon>{{ link.icon }}</v-icon>
             </v-btn>
-            <User></User>
+            <ConnectedUser></ConnectedUser>
         </v-toolbar>
         <!-- If mobile phone -->
         <v-toolbar class="hidden-sm-and-up" :id="id" :color="menuColor" elevation-10 dark dense extended>
@@ -22,18 +22,18 @@
             <v-btn v-for="link in links" :key="link.url" icon :to="link.url" exact router slot="extension">
                 <v-icon>{{ link.icon }}</v-icon>
             </v-btn>
-            <User></User>
+            <ConnectedUser></ConnectedUser>
         </v-toolbar>
     </div>
 </template>
 
 <script>
-    import User from './User.vue'
+    import ConnectedUser from './users/ConnectedUser.vue'
 
     export default {
         // Other components included
         components: {
-            User,
+            ConnectedUser,
         },
 
         // Component Data

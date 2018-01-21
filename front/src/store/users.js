@@ -23,7 +23,7 @@ export default {
     },
 
     actions: {
-        fetchUserConnected (context) {
+        fetchConnectedUser (context) {
             // fetch user data
             fetch('/connecteduser', {credentials: 'same-origin'})
             .then((resp) => resp.json())

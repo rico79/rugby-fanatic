@@ -14,7 +14,9 @@ from datetime import datetime
 import requests
 import json
 import config_vars
-from db import get_mongodb
+from db import mongodb
+
+remote_apps = {}
 
 # Wrap auth by adding decorator to route (just before the def) : @requires_auth
 def requires_auth(f):
@@ -22,16 +24,16 @@ def requires_auth(f):
     def decorated(*args, **kwargs):
         if 'profile' not in session:
             # Redirect to Login page here
-            return redirect('/')
+            return redirect('/login')
         
         return f(*args, **kwargs)
         
     return decorated
 
 # Get Auth0 remote
-def get_auth0_remote_app(app):
+def connect_auth0_remote_app(app):
     oauth = OAuth(app)
-    return oauth.remote_app(
+    remote_apps['auth0'] = oauth.remote_app(
         'auth0',
         consumer_key=config_vars.AUTH0_CLIENT_ID,
         consumer_secret=config_vars.AUTH0_CLIENT_SECRET,
@@ -58,12 +60,12 @@ def connected_user():
 
 @auth_bp.route('/login')
 def login():
-    return get_auth0_remote_app(current_app).authorize(callback=config_vars.AUTH0_LOGIN_CALLBACK)
+    return remote_apps['auth0'].authorize(callback=config_vars.AUTH0_LOGIN_CALLBACK)
 
 @auth_bp.route('/callback')
 def callback_handling():
     # Handles response from token endpoint
-    resp = get_auth0_remote_app(current_app).authorized_response()
+    resp = remote_apps['auth0'].authorized_response()
     if resp is None:
         raise Exception('Access denied: reason=%s error=%s' % (
             request.args['error_reason'],
@@ -83,8 +85,7 @@ def callback_handling():
     }
 
     # Save user in db
-    mongo = get_mongodb(current_app)
-    result = mongo.db.users.replace_one(
+    result = mongodb['db'].db.users.replace_one(
         {'user_id': userprofile['user_id']},
         userprofile,
         True,
@@ -103,4 +104,4 @@ def logout():
 
     # Redirect user to logout endpoint
     params = {'returnTo': url_for('home', _external=True), 'client_id': config_vars.AUTH0_CLIENT_ID}
-    return redirect(get_auth0_remote_app(current_app).base_url + '/v2/logout?' + urlencode(params))
+    return redirect(remote_apps['auth0'].base_url + '/v2/logout?' + urlencode(params))

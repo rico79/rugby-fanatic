@@ -1,6 +1,7 @@
 from flask import Flask
 from db import config_database
-from auth import get_auth0_remote_app, auth_bp
+from auth import connect_auth0_remote_app, auth_bp
+from users import users_bp
 import config_vars
 
 app = Flask(__name__)
@@ -10,10 +11,11 @@ app.secret_key = config_vars.APP_SECRET_KEY
 config_database(app)
 
 # Connect auth0 remote application
-get_auth0_remote_app(app)
+connect_auth0_remote_app(app)
 
 # Register blueprints
 app.register_blueprint(auth_bp)
+app.register_blueprint(users_bp, url_prefix='/users')
 
 # Index route
 @app.route('/')

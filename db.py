@@ -1,5 +1,8 @@
 from flask_pymongo import PyMongo
+from flask import current_app
 import config_vars
+
+mongodb = {}
 
 # Connect app to MongoDB
 def config_database(app):
@@ -8,7 +11,4 @@ def config_database(app):
     app.config['MONGO_DBNAME'] = config_vars.DB_DBNAME
     app.config['MONGO_USERNAME'] = config_vars.DB_USERNAME
     app.config['MONGO_PASSWORD'] = config_vars.DB_PASSWORD
-
-# Get app MongoDB
-def get_mongodb(app):
-    return PyMongo(app, config_prefix='MONGO')
+    mongodb['db'] = PyMongo(app, config_prefix='MONGO')

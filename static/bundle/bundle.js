@@ -34411,7 +34411,6 @@ exports.default = {
 //
 //
 //
-//
 
 /***/ }),
 /* 51 */
@@ -34435,45 +34434,40 @@ var render = function() {
           _c(
             "v-list",
             { attrs: { "two-line": "" } },
-            [
-              _vm._l(_vm.users, function(user) {
-                return _c(
-                  "v-list-tile",
-                  { key: user.user_id, attrs: { avatar: "" } },
-                  [
-                    _c("v-list-tile-avatar", [
-                      _c("img", { attrs: { src: user.picture } })
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "v-list-tile-content",
-                      [
-                        _c("v-list-tile-title", [
-                          _vm._v(
-                            _vm._s(user.name) + " (" + _vm._s(user.locale) + ")"
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("v-list-tile-sub-title", [
-                          _vm._v(_vm._s(user.last_connection))
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "v-list-tile-action",
-                      [_c("v-icon", [_vm._v("chat_bubble")])],
-                      1
-                    )
-                  ],
-                  1
-                )
-              }),
-              _vm._v(" "),
-              _c("v-divider")
-            ],
-            2
+            _vm._l(_vm.users, function(user) {
+              return _c(
+                "v-list-tile",
+                { key: user.user_id, attrs: { avatar: "" } },
+                [
+                  _c("v-list-tile-avatar", [
+                    _c("img", { attrs: { src: user.picture } })
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "v-list-tile-content",
+                    [
+                      _c("v-list-tile-title", [
+                        _vm._v(
+                          _vm._s(user.name) + " (" + _vm._s(user.locale) + ")"
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("v-list-tile-sub-title", [
+                        _vm._v(_vm._s(user.last_connection))
+                      ])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-list-tile-action",
+                    [_c("v-icon", [_vm._v("chat_bubble")])],
+                    1
+                  )
+                ],
+                1
+              )
+            })
           )
         ],
         1

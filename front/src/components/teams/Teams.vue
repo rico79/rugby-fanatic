@@ -11,8 +11,9 @@
     import Navigation from '../Navigation.vue'
 
     export default {
+        // Other components included
         components: {
             Navigation,
-        }
+        },
     }
 </script>

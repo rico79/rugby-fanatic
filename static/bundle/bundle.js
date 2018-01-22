@@ -33040,6 +33040,11 @@ exports.default = {
 //
 //
 //
+//
+//
+//
+//
+//
 
 /***/ }),
 /* 21 */
@@ -33213,13 +33218,7 @@ var render = function() {
         "v-toolbar",
         {
           staticClass: "hidden-xs-only",
-          attrs: {
-            id: _vm.id,
-            color: _vm.menuColor,
-            "elevation-10": "",
-            dark: "",
-            dense: ""
-          }
+          attrs: { id: _vm.id, color: _vm.menuColor, dark: "", dense: "" }
         },
         [
           _c("v-btn", { attrs: { icon: "" } }, [
@@ -33248,49 +33247,54 @@ var render = function() {
       ),
       _vm._v(" "),
       _c(
-        "v-toolbar",
-        {
-          staticClass: "hidden-sm-and-up",
-          attrs: {
-            id: _vm.id,
-            color: _vm.menuColor,
-            "elevation-10": "",
-            dark: "",
-            dense: "",
-            extended: ""
-          }
-        },
+        "v-tabs",
+        { attrs: { dark: "", grow: "" } },
         [
-          _c("v-btn", { attrs: { icon: "" } }, [
-            _c("img", { attrs: { src: _vm.logo, alt: _vm.title } })
-          ]),
-          _vm._v(" "),
-          _c("v-toolbar-title", [_vm._v(_vm._s(_vm.title))]),
-          _vm._v(" "),
-          _c("v-spacer"),
-          _vm._v(" "),
-          _vm._l(_vm.links, function(link) {
-            return _c(
-              "v-btn",
-              {
-                key: link.url,
-                attrs: {
-                  slot: "extension",
-                  icon: "",
-                  to: link.url,
-                  exact: "",
-                  router: ""
-                },
-                slot: "extension"
-              },
-              [_c("v-icon", [_vm._v(_vm._s(link.icon))])],
-              1
-            )
-          }),
-          _vm._v(" "),
-          _c("ConnectedUser")
+          _c(
+            "v-toolbar",
+            {
+              staticClass: "hidden-sm-and-up",
+              attrs: {
+                id: _vm.id,
+                color: _vm.menuColor,
+                dark: "",
+                dense: "",
+                extended: ""
+              }
+            },
+            [
+              _c("v-btn", { attrs: { icon: "" } }, [
+                _c("img", { attrs: { src: _vm.logo, alt: _vm.title } })
+              ]),
+              _vm._v(" "),
+              _c("v-toolbar-title", [_vm._v(_vm._s(_vm.title))]),
+              _vm._v(" "),
+              _c("v-spacer"),
+              _vm._v(" "),
+              _c(
+                "v-tabs-bar",
+                { attrs: { slot: "extension" }, slot: "extension" },
+                [
+                  _c("v-tabs-slider", { attrs: { color: "white" } }),
+                  _vm._v(" "),
+                  _vm._l(_vm.links, function(link) {
+                    return _c(
+                      "v-tabs-item",
+                      { key: link.url, attrs: { to: { path: link.url } } },
+                      [_c("v-icon", [_vm._v(_vm._s(link.icon))])],
+                      1
+                    )
+                  })
+                ],
+                2
+              ),
+              _vm._v(" "),
+              _c("ConnectedUser")
+            ],
+            1
+          )
         ],
-        2
+        1
       )
     ],
     1
@@ -34252,6 +34256,7 @@ var _Navigation2 = _interopRequireDefault(_Navigation);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
+    // Other components included
     components: {
         Navigation: _Navigation2.default
     }
@@ -34366,10 +34371,39 @@ var _Navigation2 = _interopRequireDefault(_Navigation);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
+    // Other components included
     components: {
         Navigation: _Navigation2.default
+    },
+
+    // When element is mounted
+    mounted: function mounted() {
+        this.$store.dispatch('fetchUsers');
+    },
+
+
+    // Data generated from other data
+    computed: {
+        users: function users() {
+            return this.$store.state.users.users;
+        }
     }
 }; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -34393,7 +34427,57 @@ var render = function() {
     [
       _c("Navigation"),
       _vm._v(" "),
-      _c("v-container", [_c("h1", [_vm._v("Users")])])
+      _c(
+        "v-container",
+        [
+          _c("h1", [_vm._v("Users")]),
+          _vm._v(" "),
+          _c(
+            "v-list",
+            { attrs: { "two-line": "" } },
+            [
+              _vm._l(_vm.users, function(user) {
+                return _c(
+                  "v-list-tile",
+                  { key: user.user_id, attrs: { avatar: "" } },
+                  [
+                    _c("v-list-tile-avatar", [
+                      _c("img", { attrs: { src: user.picture } })
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "v-list-tile-content",
+                      [
+                        _c("v-list-tile-title", [
+                          _vm._v(
+                            _vm._s(user.name) + " (" + _vm._s(user.locale) + ")"
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("v-list-tile-sub-title", [
+                          _vm._v(_vm._s(user.last_connection))
+                        ])
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "v-list-tile-action",
+                      [_c("v-icon", [_vm._v("chat_bubble")])],
+                      1
+                    )
+                  ],
+                  1
+                )
+              }),
+              _vm._v(" "),
+              _c("v-divider")
+            ],
+            2
+          )
+        ],
+        1
+      )
     ],
     1
   )
@@ -34550,7 +34634,9 @@ exports.default = {
             user_id: false,
             name: false,
             picture: false
-        }
+        },
+
+        users: []
     },
 
     mutations: {
@@ -34563,12 +34649,14 @@ exports.default = {
                 name: false,
                 picture: false
             };
+        },
+        setUsers: function setUsers(state, users) {
+            state.users = users;
         }
     },
 
     actions: {
         fetchConnectedUser: function fetchConnectedUser(context) {
-            // fetch user data
             fetch('/connecteduser', { credentials: 'same-origin' }).then(function (resp) {
                 return resp.json();
             }).then(function (data) {
@@ -34579,6 +34667,15 @@ exports.default = {
                 }
             }).catch(function (error) {
                 context.commit('resetConnectedUser');
+            });
+        },
+        fetchUsers: function fetchUsers(context) {
+            fetch('/users', { credentials: 'same-origin' }).then(function (resp) {
+                return resp.json();
+            }).then(function (data) {
+                context.commit('setUsers', data);
+            }).catch(function (error) {
+                context.commit('setUsers', []);
             });
         }
     }

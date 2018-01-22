@@ -6,6 +6,8 @@ export default {
             name: false,
             picture: false,
         },
+
+        users: [],
     },
 
     mutations: {
@@ -20,11 +22,14 @@ export default {
                 picture: false,
             }
         },
+
+        setUsers (state, users) {
+            state.users = users
+        },
     },
 
     actions: {
         fetchConnectedUser (context) {
-            // fetch user data
             fetch('/connecteduser', {credentials: 'same-origin'})
             .then((resp) => resp.json())
             .then(function(data) {
@@ -36,6 +41,17 @@ export default {
             })
             .catch(function(error) {
                 context.commit('resetConnectedUser')
+            })
+        },
+
+        fetchUsers (context) {
+            fetch('/users', {credentials: 'same-origin'})
+            .then((resp) => resp.json())
+            .then(function(data) {
+                context.commit('setUsers', data)
+            })
+            .catch(function(error) {
+                context.commit('setUsers', [])
             })
         },
     },

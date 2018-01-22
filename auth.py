@@ -13,6 +13,7 @@ from functools import wraps
 from datetime import datetime
 import requests
 import json
+import datetime
 import config_vars
 from db import mongodb
 
@@ -69,7 +70,7 @@ def callback_handling():
     if resp is None:
         raise Exception('Access denied: reason=%s error=%s' % (
             request.args['error_reason'],
-            request.args['error_description']
+            request.args['error_description'],
         ))
     
     url = config_vars.AUTH0_USERINFO
@@ -81,7 +82,9 @@ def callback_handling():
     userprofile = {
         'user_id': userinfo['sub'],
         'name': userinfo['name'],
-        'picture': userinfo['picture']
+        'locale': userinfo['locale'],
+        'last_connection': datetime.datetime.now(),
+        'picture': userinfo['picture'],
     }
 
     # Save user in db

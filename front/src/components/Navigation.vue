@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- If laptop, desktop or tablet -->
-        <v-toolbar class="hidden-xs-only" :id="id" :color="menuColor" elevation-10 dark dense>
+        <v-toolbar class="hidden-xs-only" :id="id" :color="menuColor" dark dense>
             <v-btn icon>
                 <img :src="logo" :alt="title">
             </v-btn>
@@ -13,17 +13,22 @@
             <ConnectedUser></ConnectedUser>
         </v-toolbar>
         <!-- If mobile phone -->
-        <v-toolbar class="hidden-sm-and-up" :id="id" :color="menuColor" elevation-10 dark dense extended>
-            <v-btn icon>
-                <img :src="logo" :alt="title">
-            </v-btn>
-            <v-toolbar-title>{{ title }}</v-toolbar-title>
-            <v-spacer></v-spacer>
-            <v-btn v-for="link in links" :key="link.url" icon :to="link.url" exact router slot="extension">
-                <v-icon>{{ link.icon }}</v-icon>
-            </v-btn>
-            <ConnectedUser></ConnectedUser>
-        </v-toolbar>
+        <v-tabs dark grow>
+            <v-toolbar class="hidden-sm-and-up" :id="id" :color="menuColor" dark dense extended>
+                <v-btn icon>
+                    <img :src="logo" :alt="title">
+                </v-btn>
+                <v-toolbar-title>{{ title }}</v-toolbar-title>
+                <v-spacer></v-spacer>
+                <v-tabs-bar slot="extension">
+                    <v-tabs-slider color="white"></v-tabs-slider>
+                    <v-tabs-item v-for="link in links" :key="link.url" :to="{path:link.url}">
+                        <v-icon>{{ link.icon }}</v-icon>
+                    </v-tabs-item>
+                </v-tabs-bar>
+                <ConnectedUser></ConnectedUser>
+            </v-toolbar>
+        </v-tabs>
     </div>
 </template>
 

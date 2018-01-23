@@ -3,7 +3,8 @@
         <Navigation></Navigation>
         <v-container>
             <h1>Users</h1>
-            <v-list two-line>
+            <v-progress-circular v-if="usersLoading" indeterminate></v-progress-circular>
+            <v-list v-else two-line>
                 <v-list-tile avatar v-for="user in users" :key="user.user_id">
                     <v-list-tile-avatar>
                         <img :src="user.picture"/>
@@ -39,6 +40,10 @@
         computed: {
             users () {
                 return this.$store.state.users.users
+            },
+
+            usersLoading () {
+                return this.$store.state.users.users_loading
             },
         },
     }

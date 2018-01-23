@@ -34386,9 +34386,13 @@ exports.default = {
     computed: {
         users: function users() {
             return this.$store.state.users.users;
+        },
+        usersLoading: function usersLoading() {
+            return this.$store.state.users.users_loading;
         }
     }
 }; //
+//
 //
 //
 //
@@ -34431,44 +34435,49 @@ var render = function() {
         [
           _c("h1", [_vm._v("Users")]),
           _vm._v(" "),
-          _c(
-            "v-list",
-            { attrs: { "two-line": "" } },
-            _vm._l(_vm.users, function(user) {
-              return _c(
-                "v-list-tile",
-                { key: user.user_id, attrs: { avatar: "" } },
-                [
-                  _c("v-list-tile-avatar", [
-                    _c("img", { attrs: { src: user.picture } })
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "v-list-tile-content",
+          _vm.usersLoading
+            ? _c("v-progress-circular", { attrs: { indeterminate: "" } })
+            : _c(
+                "v-list",
+                { attrs: { "two-line": "" } },
+                _vm._l(_vm.users, function(user) {
+                  return _c(
+                    "v-list-tile",
+                    { key: user.user_id, attrs: { avatar: "" } },
                     [
-                      _c("v-list-tile-title", [
-                        _vm._v(
-                          _vm._s(user.name) + " (" + _vm._s(user.locale) + ")"
-                        )
+                      _c("v-list-tile-avatar", [
+                        _c("img", { attrs: { src: user.picture } })
                       ]),
                       _vm._v(" "),
-                      _c("v-list-tile-sub-title", [
-                        _vm._v(_vm._s(user.last_connection))
-                      ])
+                      _c(
+                        "v-list-tile-content",
+                        [
+                          _c("v-list-tile-title", [
+                            _vm._v(
+                              _vm._s(user.name) +
+                                " (" +
+                                _vm._s(user.locale) +
+                                ")"
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("v-list-tile-sub-title", [
+                            _vm._v(_vm._s(user.last_connection))
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-list-tile-action",
+                        [_c("v-icon", [_vm._v("chat_bubble")])],
+                        1
+                      )
                     ],
                     1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-list-tile-action",
-                    [_c("v-icon", [_vm._v("chat_bubble")])],
-                    1
                   )
-                ],
-                1
+                })
               )
-            })
-          )
         ],
         1
       )
@@ -34630,7 +34639,8 @@ exports.default = {
             picture: false
         },
 
-        users: []
+        users: [],
+        users_loading: false
     },
 
     mutations: {
@@ -34646,6 +34656,9 @@ exports.default = {
         },
         setUsers: function setUsers(state, users) {
             state.users = users;
+        },
+        usersAreLoading: function usersAreLoading(state, loading) {
+            state.users_loading = loading;
         }
     },
 
@@ -34664,11 +34677,15 @@ exports.default = {
             });
         },
         fetchUsers: function fetchUsers(context) {
+            context.commit('usersAreLoading', true);
+
             fetch('/users', { credentials: 'same-origin' }).then(function (resp) {
                 return resp.json();
             }).then(function (data) {
+                context.commit('usersAreLoading', false);
                 context.commit('setUsers', data);
             }).catch(function (error) {
+                context.commit('usersAreLoading', false);
                 context.commit('setUsers', []);
             });
         }

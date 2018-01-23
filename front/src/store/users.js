@@ -8,6 +8,7 @@ export default {
         },
 
         users: [],
+        users_loading: false,
     },
 
     mutations: {
@@ -25,6 +26,10 @@ export default {
 
         setUsers (state, users) {
             state.users = users
+        },
+
+        usersAreLoading (state, loading) {
+            state.users_loading = loading
         },
     },
 
@@ -45,12 +50,16 @@ export default {
         },
 
         fetchUsers (context) {
+            context.commit('usersAreLoading', true)
+
             fetch('/users', {credentials: 'same-origin'})
             .then((resp) => resp.json())
             .then(function(data) {
+                context.commit('usersAreLoading', false)
                 context.commit('setUsers', data)
             })
             .catch(function(error) {
+                context.commit('usersAreLoading', false)
                 context.commit('setUsers', [])
             })
         },
